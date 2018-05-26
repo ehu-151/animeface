@@ -33,6 +33,8 @@ class PixivImagePicker(AppPixivAPI):
                 next_qs = self.parse_qs(json_result.next_url)
                 if next_qs is None:
                     return urls
+                # 空白が'+'に変換されてしまうので、ここで空白に置き換え
+                next_qs["word"] = str(next_qs["word"]).replace('+', ' ')
                 json_result = self.search_illust(**next_qs)
 
             # 枚数分だけダウンロード
@@ -68,11 +70,12 @@ def main():
 
     import shutil
     import os
-
-    shutil.rmtree(r'whole_image_orignal')
+    if os.path.exists(r'whole_image_orignal'):
+        shutil.rmtree(r'whole_image_orignal')
     os.mkdir(r'whole_image_orignal')
     for i, url in enumerate(urls):
-        picker.download(url, prefix=str(json_data["want_image"]["tag"][0]) + "_", name=str(i + 1) + ".jpg", replace=True,
+        picker.download(url, prefix=str(json_data["want_image"]["tag"][0]) + "_", name=str(i + 1) + ".jpg",
+                        replace=True,
                         path=r'whole_image_orignal')
         print(str(i + 1) + "枚目")
 
