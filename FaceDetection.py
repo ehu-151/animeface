@@ -3,7 +3,7 @@ import sys
 import os.path
 
 
-def detect(filename, cascade_file=r"./lbpcascade_animeface.xml"):
+def detect(filename, cascade_file=r"./lbpcascade_animeface.xml", name="output.jpg"):
     if not os.path.isfile(cascade_file):
         raise RuntimeError("%s: not found" % cascade_file)
 
@@ -17,16 +17,20 @@ def detect(filename, cascade_file=r"./lbpcascade_animeface.xml"):
                                      scaleFactor=1.1,
                                      minNeighbors=5,
                                      minSize=(24, 24))
+    if len(faces)==0 : return
     for (x, y, w, h) in faces:
-        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        # cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        image = image[y:y + h, x:x + w]
     # 画像表示
-    cv2.imshow("AnimeFaceDetect", image)
+    # cv2.imshow("AnimeFaceDetect", image)
     cv2.waitKey(0)
-    cv2.imwrite("out.png", image)
+    cv2.imwrite(r'neg/' + name, image)
 
-if __name__=='__main__':
-    if len(sys.argv) != 2:
-        sys.stderr.write("usage: detect.py <filename>\n")
-        sys.exit(-1)
 
-    detect(sys.argv[1])
+if __name__ == '__main__':
+    path = r'whole_image_orignal/'
+    # detect(r'C:\\Users/kaikoro/PycharmProjects/animeface/whole_image_orignal/1.jpg')
+    files = os.listdir(path)
+    for file in files:
+        p=path+file
+        detect(p,name=file)
