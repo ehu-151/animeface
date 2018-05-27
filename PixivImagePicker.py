@@ -65,17 +65,18 @@ def main():
     pixiv_config = json_data["pixiv_config"]
     picker = PixivImagePicker(pixiv_config["pixiv_id"], pixiv_config["password"])
 
-    urls = picker.get_image_urls_by_tag(json_data["want_image"]["tag"], int(json_data["want_image"]["num_of_image"]))
+    urls = picker.get_image_urls_by_tag('やばたにえん', int(20))
     print(len(urls))
 
     import shutil
     import os
-    path = r'whole_image_orignal2'
-    if os.path.exists(path):
-        shutil.rmtree(path)
-    os.mkdir(path)
+    path = r'img/'
+    if os.path.exists(path) is False:
+        # shutil.rmtree(path)
+        os.mkdir(path)
+
     for i, url in enumerate(urls):
-        picker.download(url, name='b'+str(i + 1) + ".jpg",
+        picker.download(url, name='k_'+str(i + 1) + ".jpg",
                         replace=True,
                         path=path)
         print(str(i + 1) + "枚目")
