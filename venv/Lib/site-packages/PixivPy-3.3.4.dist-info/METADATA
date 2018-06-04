@@ -1,0 +1,16 @@
+Metadata-Version: 2.0
+Name: PixivPy
+Version: 3.3.4
+Summary: Pixiv API for Python (with 6.x AppAPI supported)
+Home-page: https://github.com/upbit/pixivpy
+Author: upbit
+Author-email: rmusique@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/upbit/pixivpy/releases
+Keywords: pixiv,api,pixivpy
+Platform: UNKNOWN
+Requires-Dist: requests
+
+UNKNOWN
+
+
