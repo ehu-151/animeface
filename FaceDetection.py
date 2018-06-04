@@ -19,7 +19,7 @@ def detect(filename, cascade_file=r"./lbpcascade_animeface.xml", name="output.jp
                                      minSize=(24, 24))
     if len(faces)==0 : return
     for (x, y, w, h) in faces:
-        # cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        # 顔だけトリミング
         image = image[y:y + h, x:x + w]
     # 画像表示
     # cv2.imshow("AnimeFaceDetect", image)
